@@ -2,19 +2,19 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite" parallel="classes" thread-count="3">
     <test verbose="2" name="All Classes Test1">
-        <parameter name="browser" value="chrome">
-            <classes>
-                <class name="keyPresses.KeyPressesTest">
-                    <methods>
-                        <include name="keyPressesTest"/>
-                    </methods>
-                </class>
-                <class name="login.LoginTest">
-                    <methods>
-                        <include name="successfulLoginTest"/>
-                    </methods>
-                </class>
-            </classes>
-        </parameter>
+    <parameter name="browser" value="chrome">
+        <classes>
+            <class name="keyPresses.KeyPressesTest">
+                <methods>
+                    <include name="keyPressesTest"/>
+                </methods>
+            </class>
+            <class name="login.LoginTest">
+                <methods>
+                    <include name="successfulLoginTest"/>
+                </methods>
+            </class>
+        </classes>
+    </parameter>
     </test>
 </suite>
