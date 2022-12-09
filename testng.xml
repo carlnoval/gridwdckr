@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite" parallel="classes" thread-count="3">
-    <test verbose="2" name="All Classes Test1">
+<suite name="All Test Suite" parallel="tests" thread-count="2">
+    <test verbose="2" name="All Classes Test with Chrome" parallel="methods" thread-count="2">
     <parameter name="browser" value="chrome">
+        <classes>
+            <class name="keyPresses.KeyPressesTest">
+                <methods>
+                    <include name="keyPressesTest"/>
+                </methods>
+            </class>
+            <class name="login.LoginTest">
+                <methods>
+                    <include name="successfulLoginTest"/>
+                </methods>
+            </class>
+        </classes>
+    </parameter>
+    </test>
+
+    <test verbose="2" name="All Classes Test with Firefox" parallel="methods" thread-count="2">
+    <parameter name="browser" value="firefox">
         <classes>
             <class name="keyPresses.KeyPressesTest">
                 <methods>
