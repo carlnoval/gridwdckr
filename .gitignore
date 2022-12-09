@@ -13,4 +13,5 @@
 *resources/screenshots/**
 
 # allure report artifacts does not need to be tracked
+*allure-report/**
 *allure-results/**
