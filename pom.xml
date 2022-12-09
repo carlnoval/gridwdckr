@@ -59,6 +59,7 @@
     </dependencies>
 
     <!-- https://docs.qameta.io/allure/#_testng -->
+    <!-- also makes sure that `mvn clean test` command follows testng.xml settings -->
     <build>
         <plugins>
             <plugin>
@@ -69,6 +70,7 @@
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
+                    <!-- command: `mvn clean test` will use testng.xml settings -->
                     <suiteXmlFiles>
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
