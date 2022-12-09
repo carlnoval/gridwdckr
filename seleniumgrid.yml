@@ -16,7 +16,7 @@ services:
   gird_chrome_node:
     image: selenium/node-chrome:latest
     container_name: c_node
-    shm_size: "2gb"                           # shared memory, known workaround to avoid the browser crashing inside a docker container
+    shm_size: 2gb                           # shared memory, known workaround to avoid the browser crashing inside a docker container
     depends_on:
       - gird_hub_service
     ports:
@@ -30,7 +30,7 @@ services:
   gird_firefox_node:
     image: selenium/node-firefox:latest
     container_name: ff_node
-    shm_size: "2gb"
+    shm_size: 2gb
     depends_on:
       - gird_hub_service
     ports:
@@ -44,7 +44,7 @@ services:
   gird_edge_node:
     image: selenium/node-edge:latest
     container_name: e_node
-    shm_size: "2gb"
+    shm_size: 2gb
     depends_on:
       - gird_hub_service
     ports:
