@@ -25,7 +25,7 @@ public class BaseTest {
 
     // using selenium grid
     @BeforeClass                    // always executes before the class of the test
-    @Parameters("browser")          // "browser" will be set from testng.xml, gets stored in browserType
+    @Parameters({"browser"})        // "browser" will be set from testng.xml, gets stored in browserType
     public void webDriverInit(String browserType) throws MalformedURLException {
         DesiredCapabilities browserSetup = new DesiredCapabilities();
 
