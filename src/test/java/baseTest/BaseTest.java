@@ -3,39 +3,49 @@ package baseTest;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.Browser;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
 import pages.BasePage;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
 public class BaseTest {
     private WebDriver driver;
-    protected BasePage basePage;                                // protected so subclass and package can access
+    protected BasePage basePage;    // protected so subclass and package can access
 
-    // always executes before the class of the test
-    @BeforeClass
-    public void webDriverInit() {
-        String SELENIUM_KEY = "webdriver.chrome.driver";        // key that selenium will look for
-        String CHROME_DRIVER_PATH = "resources/chromedriver";   // chromedriver107 path from project root, chromedriver107.exe for windows
-        System.setProperty(SELENIUM_KEY, CHROME_DRIVER_PATH);   // System.setProperty allows the Selenium WebDriver framework to know which driver to use for automation
+    // using selenium grid
+    @BeforeClass                    // always executes before the class of the test
+    @Parameters("browser")          // "browser" will be set from testng.xml, gets stored in browserType
+    public void webDriverInit(String browserType) throws MalformedURLException {
+        DesiredCapabilities browserSetup = new DesiredCapabilities();
 
-        driver = new ChromeDriver(getChromeOptions());          // instantiating a new webdriver with browser options, browser options is optional
+        switch (browserType) {
+            case "chrome" -> {
+                browserSetup.setBrowserName(Browser.CHROME.browserName());
+                System.out.println("########## Test will now run on: " + Browser.CHROME.browserName() + " ##########");
+            }
+            case "firefox" -> {
+                browserSetup.setBrowserName(Browser.FIREFOX.browserName());
+                System.out.println("########## Test will now run on: " + Browser.FIREFOX.browserName() + " ##########");
+            }
+            case "edge" -> {
+                browserSetup.setBrowserName(Browser.EDGE.browserName());
+                System.out.println("########## Test will now run on: " + Browser.EDGE.browserName() + " ##########");
+            }
+            default -> System.out.println("########## there is something wrong with `browserType` ##########");
+        }
 
-        // implicit wait, enable if needed
-        // webdriver keeps X Amount Of Time allowance for the element to be found
-        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
-        basePage = new BasePage(driver);                        // homepage object that subclasses and package can access
+        driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), browserSetup);
     }
 
     // always executes before every @Test annotated methods
@@ -66,6 +76,7 @@ public class BaseTest {
     @AfterClass
     public void webDriverClose() {
         driver.quit();
+        System.out.println("########## Class test completed, diver.quit() has completed ##########");
     }
 
     private ChromeOptions getChromeOptions() {
