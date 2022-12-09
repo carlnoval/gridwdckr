@@ -46,6 +46,7 @@ public class BaseTest {
         }
 
         driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), browserSetup);
+        basePage = new BasePage(driver);
     }
 
     // always executes before every @Test annotated methods
