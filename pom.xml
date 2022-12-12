@@ -72,7 +72,7 @@
                     </argLine>
                     <!-- command: `mvn clean test` will use testng.xml settings -->
                     <suiteXmlFiles>
-                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                        <suiteXmlFile>xml-files/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
                 <dependencies>
