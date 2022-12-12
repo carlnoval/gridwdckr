@@ -42,7 +42,7 @@ public class BaseTest {
                 browserSetup.setBrowserName(Browser.EDGE.browserName());
                 System.out.println("########## Test will now run on: " + Browser.EDGE.browserName() + " ##########");
             }
-            default -> System.out.println("########## there is something wrong with `browserType` ##########");
+            default -> System.out.println("########## there is something wrong with the provided `browserType` from xml file ##########");
         }
 
         driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), browserSetup);
