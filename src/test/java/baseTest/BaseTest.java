@@ -17,7 +17,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BaseTest {
     private WebDriver driver;
@@ -81,9 +83,16 @@ public class BaseTest {
     }
 
     private ChromeOptions getChromeOptions() {
-        ChromeOptions myOptions = new ChromeOptions();
-        //myOptions.setHeadless(true);
-        myOptions.setExperimentalOption("excludeSwitches", List.of("enable-automation"));   // removes banner: "Chrome is being controlled by automated test software."
-        return myOptions;
+        ChromeOptions desiredOptions = new ChromeOptions();
+        //desiredOptions.setHeadless(true);                                                                  // toggle whenever needed
+        desiredOptions.addArguments("start-maximized");
+        desiredOptions.setExperimentalOption("excludeSwitches", List.of("enable-automation"));   // removes banner: "Chrome is being controlled by automated test software."
+
+        //Disable chrome from offering to save passwords
+        Map<String, Object> preferences = new HashMap<>();
+        preferences.put("credentials_enable_service", false);
+        desiredOptions.setExperimentalOption("prefs", preferences);
+
+        return desiredOptions;
     }
 }
