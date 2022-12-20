@@ -1,11 +1,12 @@
 package baseTest;
 
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.Browser;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
@@ -27,27 +28,10 @@ public class BaseTest {
 
     // using selenium grid
     @BeforeClass                    // always executes before the class of the test
-    @Parameters({"browser"})        // "browser" will be set from testng.xml, gets stored in browserType
-    public void webDriverInit(String browserType) throws MalformedURLException {
-        DesiredCapabilities browserSetup = new DesiredCapabilities();
-
-        switch (browserType) {
-            case "chrome" -> {
-                browserSetup.setBrowserName(Browser.CHROME.browserName());
-                System.out.println("########## Test will now run on: " + Browser.CHROME.browserName() + " ##########");
-            }
-            case "firefox" -> {
-                browserSetup.setBrowserName(Browser.FIREFOX.browserName());
-                System.out.println("########## Test will now run on: " + Browser.FIREFOX.browserName() + " ##########");
-            }
-            case "edge" -> {
-                browserSetup.setBrowserName(Browser.EDGE.browserName());
-                System.out.println("########## Test will now run on: " + Browser.EDGE.browserName() + " ##########");
-            }
-            default -> System.out.println("########## there is something wrong with the provided `browserType` from xml file ##########");
-        }
-
-        driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), browserSetup);
+    @Parameters({"browser"})        // "browser" will be set from testng.xml, gets stored in desiredBrowser
+    public void webDriverInit(String desiredBrowser) throws MalformedURLException {
+        MutableCapabilities browser = configureBrowser(desiredBrowser);
+        driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), browser);
         basePage = new BasePage(driver);
     }
 
@@ -82,17 +66,59 @@ public class BaseTest {
         System.out.println("########## Class test completed, diver.quit() has completed ##########");
     }
 
+    private MutableCapabilities configureBrowser(String desiredBrowser) {
+        MutableCapabilities browser = new MutableCapabilities();
+
+        switch (desiredBrowser) {
+            case "chrome" -> {
+                String browserName = Browser.CHROME.browserName();
+                browser.setCapability("browserName", browserName);
+                browser.setCapability("goog:chromeOptions", getChromeOptions());
+                System.out.println("########## Test will now run on: " + browserName + " ##########");
+            }
+            case "firefox" -> {
+                String browserName = Browser.FIREFOX.browserName();
+                browser.setCapability("browserName", browserName);
+                browser.setCapability("moz:firefoxOptions", getFirefoxOptions());
+                System.out.println("########## Test will now run on: " + browserName + " ##########");
+            }
+            default -> System.out.println("########## there is something wrong with the provided `desiredBrowser` from the .xml file ##########");
+        }
+
+        return browser;
+    }
+
     private ChromeOptions getChromeOptions() {
-        ChromeOptions desiredOptions = new ChromeOptions();
-        //desiredOptions.setHeadless(true);                                                                  // toggle whenever needed
-        desiredOptions.addArguments("start-maximized");
-        desiredOptions.setExperimentalOption("excludeSwitches", List.of("enable-automation"));   // removes banner: "Chrome is being controlled by automated test software."
+        ChromeOptions desiredChromeOptions = new ChromeOptions();
+
+        /*
+        use any one of the next two lines when headless is needed
+
+        desiredChromeOptions.setHeadless(true);
+        desiredChromeOptions.addArguments("headless");
+        */
+
+        desiredChromeOptions.addArguments("start-maximized");
+        desiredChromeOptions.setExperimentalOption("excludeSwitches", List.of("enable-automation"));    // removes banner: "Chrome is being controlled by automated test software."
 
         //Disable chrome from offering to save passwords
         Map<String, Object> preferences = new HashMap<>();
         preferences.put("credentials_enable_service", false);
-        desiredOptions.setExperimentalOption("prefs", preferences);
+        desiredChromeOptions.setExperimentalOption("prefs", preferences);
 
-        return desiredOptions;
+        return desiredChromeOptions;
+    }
+
+    private FirefoxOptions getFirefoxOptions() {
+        FirefoxOptions desiredFirefoxOptions = new FirefoxOptions();
+
+        /*
+        use any one of the next two lines when headless is needed
+
+        desiredFirefoxOptions.setHeadless(true);
+        desiredFirefoxOptions.addArguments("-headless");
+        */
+
+        return desiredFirefoxOptions;
     }
 }
