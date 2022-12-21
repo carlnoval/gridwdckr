@@ -1,11 +1,10 @@
 package baseTest;
 
-import org.openqa.selenium.MutableCapabilities;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.Browser;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
@@ -47,12 +46,27 @@ public class BaseTest {
     @AfterMethod
     public void screenShotOnFail(ITestResult testResults) {     // ITestResult gets automatically passed to the method
         if (ITestResult.FAILURE == testResults.getStatus()) {
-            TakesScreenshot ss = (TakesScreenshot)driver;       // take a screenshot if test failed
-            File ssFile = ss.getScreenshotAs(OutputType.FILE);  // declaring screenshot as a file object
+            String browserName = ((RemoteWebDriver) driver).getCapabilities().getBrowserName(); // specify which browser ss came from
+            System.out.println("########### Getting browser name: " + browserName);
+
+
+            //WebDriver augmentedDriver = new Augmenter().augment(driver);
+            //File screenshot = ((TakesScreenshot)augmentedDriver).getScreenshotAs(OutputType.FILE);
+            //FileUtils.copyFile(screenshot, new File("D:\\screenshots\\remotescreenshot1.jpg"));
+
+            WebDriver augmentedDriver = new Augmenter().augment(driver);
+            System.out.println("########### Able to crete augmentedDriver");
+            TakesScreenshot ss = (TakesScreenshot)augmentedDriver;          // take a screenshot
+            File ssFile = ss.getScreenshotAs(OutputType.FILE);              // declaring screenshot as a file object
+            System.out.println("########### Able to take a screenshot");
             try {
+                System.out.println("########### Attempting to copy screenshot");
                 // moving screenshot to desired path
-                String desiredSSPath = "resources/screenshots/" + testResults.getName() + ".png";
-                Files.move(ssFile.toPath(), Path.of(desiredSSPath));
+                String desiredSSPath = "resources/screenshots/" + testResults.getName() + browserName +  ".png";
+                //Files.move(ssFile.toPath(), Path.of(desiredSSPath));
+                //Files.copy(ssFile.toPath(), Path.of(desiredSSPath));
+                FileUtils.copyFile(ssFile, new File(desiredSSPath));
+                System.out.println("########### Able to copy screenshot");
             } catch (IOException e) {
                 e.printStackTrace();
             }
