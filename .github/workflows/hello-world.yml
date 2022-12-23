@@ -1,6 +1,25 @@
 name: (optional) he
 run-name: (optional) GitHub Actions hello world
-on: [push]
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
+      tags:
+        description: 'Test scenario tags'
+        required: false
+        type: boolean
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
