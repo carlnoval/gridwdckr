@@ -1,21 +1,21 @@
 name: name - Hello World Github Actions (optional)
 run-name: run-name - GitHub Actions hello world (optional)
-on:
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-          - info
-          - warning
-          - debug
-      tags:
-        description: 'Test scenario tags'
-        required: false
-        type: boolean
+on: workflow_dispatch
+#  workflow_dispatch:
+#    inputs:
+#      logLevel:
+#        description: 'Log level'
+#        required: true
+#        default: 'warning'
+#        type: choice
+#        options:
+#          - info
+#          - warning
+#          - debug
+#      tags:
+#        description: 'Test scenario tags'
+#        required: false
+#        type: boolean
 #      environment:
 #        description: 'Environment to run tests against'
 #        type: environment
