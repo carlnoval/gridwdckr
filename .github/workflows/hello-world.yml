@@ -24,4 +24,5 @@ jobs:
   run-command:
     runs-on: ubuntu-latest
     steps:
+      - name: "Print Hello world"
       - run: echo "Hello World from GitHub Actions"
