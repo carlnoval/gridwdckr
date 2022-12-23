@@ -1,5 +1,5 @@
-name: (optional) he
-run-name: (optional) GitHub Actions hello world
+name: name - Hello World Github Actions (optional)
+run-name: run-name - GitHub Actions hello world (optional)
 on:
   workflow_dispatch:
     inputs:
@@ -21,7 +21,7 @@ on:
 #        type: environment
 #        required: true
 jobs:
-  check-bats-version:
+  run-command:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Hello World from GitHub Actions"
