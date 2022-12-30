@@ -11,6 +11,6 @@ public class FailingTest extends BaseTest {
     public void failingTest() {
         ChallengingDOM challengingDOMPage = basePage.clickChallengingDOM();
         //Expected needs to be 'Challenging DOM' for test to pass
-        assertEquals(challengingDOMPage.getHeaderText(),"Challenging DOM", "Do not fix failing test");
+        assertEquals(challengingDOMPage.getHeaderText(),"Challenging DOMx", "Do not fix failing test");
     }
 }
