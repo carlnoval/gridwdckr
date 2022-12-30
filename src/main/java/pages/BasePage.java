@@ -20,6 +20,11 @@ public class BasePage {
         return new KeyPressesPage(driver);
     }
 
+    public ChallengingDOM clickChallengingDOM() {
+        clickLink("Challenging DOM");
+        return new ChallengingDOM(driver);
+    }
+
     // helper method prevents repetition of multiple locators
     private void clickLink(String linkText) {
         driver.findElement(By.linkText(linkText)).click();

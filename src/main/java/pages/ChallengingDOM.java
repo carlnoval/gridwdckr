@@ -1,0 +1,18 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class ChallengingDOM {
+    private final WebDriver driver;
+
+    private final By alertButton = By.className(".columns > .alert");
+
+    public ChallengingDOM(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public String getAlertButtonText() {
+        return driver.findElement(alertButton).getText();
+    }
+}
