@@ -6,7 +6,7 @@ version: "3.8"                        # docker compose version
 
 services:
 
-  gird_hub_service:
+  grid_hub_service:
     image: seleniarm/hub:latest
     container_name: hub
     ports:
@@ -14,12 +14,12 @@ services:
       - "4443:4443"
       - "4444:4444"
 
-  gird_chrome_node:
+  grid_chrome_node:
     image: seleniarm/node-chromium:latest
     container_name: c_node
     shm_size: 2gb                           # shared memory, 2gb is a known workaround to avoid the browser crashing in the docker container
     depends_on:
-      - gird_hub_service
+      - grid_hub_service
     ports:
       - "7901:7900"                         # expose No VNC service port of node container, if used with scaling in mind then local machine port can be removed and docker will auto assign a port
     environment:
@@ -29,12 +29,12 @@ services:
       SE_NODE_MAX_SESSIONS: 3
       SE_NODE_GRID_URL: http://172.19.0.4:4444
 
-  gird_firefox_node:
+  grid_firefox_node:
     image: seleniarm/node-firefox:latest
     container_name: ff_node
     shm_size: 2gb
     depends_on:
-      - gird_hub_service
+      - grid_hub_service
     ports:
       - "7902:7900"
     environment:
