@@ -1,22 +1,18 @@
 package baseTest;
 
-import org.apache.commons.io.FileUtils;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.Browser;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import pages.BasePage;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.ByteArrayInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,28 +42,12 @@ public class BaseTest {
     @AfterMethod
     public void screenShotOnFail(ITestResult testResults) {     // ITestResult gets automatically passed to the method
         if (ITestResult.FAILURE == testResults.getStatus()) {
-            String browserName = ((RemoteWebDriver) driver).getCapabilities().getBrowserName(); // specify which browser ss came from
-            System.out.println("########### Getting browser name: " + browserName);
+            TakesScreenshot ss = (TakesScreenshot)driver;                       // take a screenshot if test failed
+            String ssFileName = ss.getScreenshotAs(OutputType.FILE).getName();  // getting name of the file
 
-
-            //WebDriver augmentedDriver = new Augmenter().augment(driver);
-            //File screenshot = ((TakesScreenshot)augmentedDriver).getScreenshotAs(OutputType.FILE);
-            //FileUtils.copyFile(screenshot, new File("D:\\screenshots\\remotescreenshot1.jpg"));
-
-            WebDriver augmentedDriver = new Augmenter().augment(driver);
-            System.out.println("########### Able to crete augmentedDriver");
-            TakesScreenshot ss = (TakesScreenshot)augmentedDriver;          // take a screenshot
-            File ssFile = ss.getScreenshotAs(OutputType.FILE);              // declaring screenshot as a file object
-            System.out.println("########### Able to take a screenshot");
             try {
-                System.out.println("########### Attempting to copy screenshot");
-                // moving screenshot to desired path
-                String desiredSSPath = "resources/screenshots/" + testResults.getName() + browserName +  ".png";
-                //Files.move(ssFile.toPath(), Path.of(desiredSSPath));
-                //Files.copy(ssFile.toPath(), Path.of(desiredSSPath));
-                FileUtils.copyFile(ssFile, new File(desiredSSPath));
-                System.out.println("########### Able to copy screenshot");
-            } catch (IOException e) {
+                Allure.addAttachment(ssFileName, new ByteArrayInputStream(ss.getScreenshotAs(OutputType.BYTES)));
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
