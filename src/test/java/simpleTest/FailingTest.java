@@ -10,7 +10,7 @@ public class FailingTest extends BaseTest {
     @Test
     public void failingTest() {
         ChallengingDOM challengingDOMPage = basePage.clickChallengingDOM();
-        //Expected needs to be 'qux' for test to pass
-        assertEquals(challengingDOMPage.getAlertButtonText(),"quz", "Do not fix failing test");
+        //Expected needs to be 'Challenging DOM' for test to pass
+        assertEquals(challengingDOMPage.getHeaderText(),"Challenging DOM", "Do not fix failing test");
     }
 }

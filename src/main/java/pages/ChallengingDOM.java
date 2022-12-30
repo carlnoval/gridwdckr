@@ -6,13 +6,13 @@ import org.openqa.selenium.WebDriver;
 public class ChallengingDOM {
     private final WebDriver driver;
 
-    private final By alertButton = By.className(".columns > .alert");
+    private final By header = By.className(".example > h3");
 
     public ChallengingDOM(WebDriver driver) {
         this.driver = driver;
     }
 
-    public String getAlertButtonText() {
-        return driver.findElement(alertButton).getText();
+    public String getHeaderText() {
+        return driver.findElement(header).getText();
     }
 }
