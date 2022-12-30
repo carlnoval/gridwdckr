@@ -7,7 +7,6 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.Browser;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
-import org.testng.TestListenerAdapter;
 import org.testng.annotations.*;
 import pages.BasePage;
 
