@@ -7,6 +7,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.Browser;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
+import org.testng.TestListenerAdapter;
 import org.testng.annotations.*;
 import pages.BasePage;
 
@@ -54,6 +55,7 @@ public class BaseTest {
     }
 
     // always executes before the class of the test
+    // a better way is to use a class that extends TestListenerAdapter but there is an Allure bug that does not display Test Body so screenshots will also not appear
     @AfterClass
     public void webDriverClose() {
         driver.quit();
