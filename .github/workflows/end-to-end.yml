@@ -39,8 +39,8 @@ jobs:
           # Cache dependencies from pom.xml, reduces run time by only downloading new dependencies
           cache: 'maven'
 #
-#      - name: Run EndToEnd Test
-#        run: mvn test
+      - name: Run EndToEnd Test
+        run: mvn test
 #
 #      - name: Get Allure history
 #        uses: actions/checkout@v3
