@@ -41,37 +41,37 @@ jobs:
 #
       - name: Run EndToEnd Test
         run: mvn test
-#
-#      - name: Get Allure history
-#        uses: actions/checkout@v3
-#        if: success() || failure()
-#        with:
-#          # The repo branch to checkout
-#          ref: gh-pages
-#          # Relative path under $GITHUB_WORKSPACE to place the repository branch that was checked out
-#          # $GITHUB_WORKSPACE is the default working directory on the runner for steps: /home/runner/work/gh-actions/gh-actions
-#          path: gh-pages
-#
-#      - name: Generate Allure Report
-#        uses: simple-elf/allure-report-action@master
-#        if: success() || failure()
-#        id: allure-report
-#        with:
-#          allure_results: allure-results
-#          gh_pages: gh-pages
-#          allure_report: allure-report
-#          allure_history: allure-history
-#          keep_reports: 20
-#
-#      # Note that after this workflow, `pages-build-deployment` workflow controlled by GitHub still has to complete before the latest reports are published to GitHub Pages
-#      - name: Deploy report to Github Pages
-#        if: success() || failure()
-#        uses: peaceiris/actions-gh-pages@v3
-#        with:
-#          github_token: ${{ secrets.GITHUB_TOKEN }}
-#          publish_branch: gh-pages
-#          publish_dir: allure-history
-#
-#      - name: Latest Report URL
-#        if: success() || failure()
-#        run: echo https://carlnoval.github.io/gh-actions/${{ github.run_number }}
+
+      - name: Get Allure history
+        uses: actions/checkout@v3
+        if: success() || failure()
+        with:
+          # The repo branch to checkout
+          ref: test-report
+          # Relative path under $GITHUB_WORKSPACE to place the repository branch that was checked out
+          # $GITHUB_WORKSPACE is the default working directory on the runner for steps: /home/runner/work/gh-actions/gh-actions
+          path: test-report
+
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@master
+        if: success() || failure()
+        id: allure-report
+        with:
+          allure_results: allure-results
+          gh_pages: test-report
+          allure_report: allure-report
+          allure_history: allure-history
+          keep_reports: 20
+
+      # Note that after this workflow, `pages-build-deployment` workflow controlled by GitHub still has to complete before the latest reports are published to GitHub Pages
+      - name: Deploy report to Github Pages
+        if: success() || failure()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: test-report
+          publish_dir: allure-history
+
+      - name: Latest Report URL
+        if: success() || failure()
+        run: echo https://carlnoval.github.io/gh-gridwdckr/${{ github.run_number }}
