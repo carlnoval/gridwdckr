@@ -28,14 +28,12 @@ jobs:
       - name: Checkout master branch of the repo
         uses: actions/checkout@v3
 
-      - name: Pull docker images
-        run: docker compose -f docker/armseleniumgrid.yml pull
+      - name: Ensure to cache Docker images
+        uses: ScribeMD/docker-cache@0.2.6
+        with:
+          key: docker-${{ runner.os }}-${{ hashFiles(./docker/armseleniumgrid.yml) }}
 
-      - name: Cache docker images
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-
-      - name: Start Selenium Grid docker containers (Hub and Nodes)
+      - name: Setup Selenium Grid (Hub and Nodes)
         run: docker compose -f docker/armseleniumgrid.yml up -d
 
       - name: Set up JDK 17
