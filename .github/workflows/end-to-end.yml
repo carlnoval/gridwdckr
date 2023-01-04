@@ -26,7 +26,7 @@ jobs:
     steps:
 
       - name: Checkout master branch of the repo
-        uses: actions/checkout
+        uses: actions/checkout@v3
 
       - name: Pull docker images
         run: docker compose -f docker/armseleniumgrid.yml pull
