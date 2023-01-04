@@ -28,6 +28,11 @@ jobs:
       - name: Checkout master branch of the repo
         uses: actions/checkout@v3
 
+      - name: Cache Docker images
+        uses: ScribeMD/docker-cache@0.2.6
+        with:
+          key: docker-${{ runner.os }}-${{ hashFiles(...) }}
+
       - name: Setup Selenium Grid (Hub and Nodes)
         run: docker compose -f docker/armseleniumgrid.yml up -d
 
