@@ -31,7 +31,7 @@ jobs:
       - name: Ensure to cache Docker images
         uses: ScribeMD/docker-cache@0.2.6
         with:
-          key: docker-${{ runner.os }}-${{ hashFiles(**/armseleniumgrid.yml) }}
+          key: docker-${{ runner.os }}-${{ hashFiles('docker/armseleniumgrid.yml') }}
 
       - name: Setup Selenium Grid (Hub and Nodes)
         run: docker compose -f docker/armseleniumgrid.yml up -d
