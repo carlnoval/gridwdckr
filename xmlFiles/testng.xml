@@ -6,7 +6,7 @@
         <classes>
             <class name="keyPresses.KeyPressesTest"> </class>
             <class name="login.LoginTest"> </class>
-<!--            <class name="simpleTest.FailingTest"> </class>-->
+            <class name="simpleTest.FailingTest"> </class>
         </classes>
     </parameter>
     </test>
@@ -16,7 +16,7 @@
         <classes>
             <class name="keyPresses.KeyPressesTest"> </class>
             <class name="login.LoginTest"> </class>
-<!--            <class name="simpleTest.FailingTest"> </class>-->
+            <class name="simpleTest.FailingTest"> </class>
         </classes>
     </parameter>
     </test>
