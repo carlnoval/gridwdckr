@@ -1,0 +1,7 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Thu Jan 05 16:45:14 GMT 2023","Thu Jan 05 16:45:15 GMT 2023","1584","All Test Suite","All Classes Test with Chrome","keyPresses.KeyPressesTest","keyPresses.KeyPressesTest","keyPressesTest","keyPressesTest",""
+"passed","Thu Jan 05 16:45:17 GMT 2023","Thu Jan 05 16:45:18 GMT 2023","1152","All Test Suite","All Classes Test with Chrome","login.LoginTest","login.LoginTest","successfulLoginTest","successfulLoginTest",""
+"passed","Thu Jan 05 16:45:23 GMT 2023","Thu Jan 05 16:45:24 GMT 2023","569","All Test Suite","All Classes Test with Firefox","keyPresses.KeyPressesTest","keyPresses.KeyPressesTest","keyPressesTest","keyPressesTest",""
+"failed","Thu Jan 05 16:45:19 GMT 2023","Thu Jan 05 16:45:19 GMT 2023","652","All Test Suite","All Classes Test with Firefox","simpleTest.FailingTest","simpleTest.FailingTest","failingTest","failingTest",""
+"passed","Thu Jan 05 16:45:19 GMT 2023","Thu Jan 05 16:45:20 GMT 2023","1374","All Test Suite","All Classes Test with Firefox","login.LoginTest","login.LoginTest","successfulLoginTest","successfulLoginTest",""
+"failed","Thu Jan 05 16:45:14 GMT 2023","Thu Jan 05 16:45:15 GMT 2023","915","All Test Suite","All Classes Test with Chrome","simpleTest.FailingTest","simpleTest.FailingTest","failingTest","failingTest",""
