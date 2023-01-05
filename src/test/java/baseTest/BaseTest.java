@@ -93,6 +93,8 @@ public class BaseTest {
         desiredChromeOptions.addArguments("headless");
         */
 
+        desiredChromeOptions.addArguments("headless");
+
         desiredChromeOptions.addArguments("start-maximized");
         desiredChromeOptions.setExperimentalOption("excludeSwitches", List.of("enable-automation"));    // removes banner: "Chrome is being controlled by automated test software."
 
@@ -114,6 +116,7 @@ public class BaseTest {
         desiredFirefoxOptions.addArguments("-headless");
         */
 
+        desiredFirefoxOptions.addArguments("-headless");
         return desiredFirefoxOptions;
     }
 }
