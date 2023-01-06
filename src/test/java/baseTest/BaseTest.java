@@ -21,7 +21,6 @@ public class BaseTest {
     private WebDriver driver;
     protected BasePage basePage;    // protected so subclass and package can access
 
-    // using selenium grid
     @BeforeClass                    // always executes before the class of the test
     @Parameters({"browser"})        // "browser" will be set from testng.xml, gets stored in desiredBrowser
     public void webDriverInit(String desiredBrowser) throws MalformedURLException {
@@ -40,7 +39,7 @@ public class BaseTest {
 
     // always executes after every @Test annotated methods
     @AfterMethod
-    public void screenShotOnFail(ITestResult testResults) {     // ITestResult gets automatically passed to the method
+    public void screenShotOnFail(ITestResult testResults) {                     // ITestResult gets automatically passed to the method
         if (ITestResult.FAILURE == testResults.getStatus()) {
             TakesScreenshot ss = (TakesScreenshot)driver;                       // take a screenshot if test failed
             String ssFileName = ss.getScreenshotAs(OutputType.FILE).getName();  // getting name of the file
@@ -93,8 +92,6 @@ public class BaseTest {
         desiredChromeOptions.addArguments("headless");
         */
 
-        desiredChromeOptions.addArguments("headless");
-
         desiredChromeOptions.addArguments("start-maximized");
         desiredChromeOptions.setExperimentalOption("excludeSwitches", List.of("enable-automation"));    // removes banner: "Chrome is being controlled by automated test software."
 
@@ -116,7 +113,6 @@ public class BaseTest {
         desiredFirefoxOptions.addArguments("-headless");
         */
 
-        desiredFirefoxOptions.addArguments("-headless");
         return desiredFirefoxOptions;
     }
 }
