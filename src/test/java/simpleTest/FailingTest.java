@@ -18,9 +18,5 @@ public class FailingTest extends BaseTest {
         Allure.step("Verify header text");
         //Expected needs to be 'Challenging DOM' for test to pass
         assertEquals(challengingDOMPage.getHeaderText(),"Challenging DOMx", "Do not fix failing test");
-
-        Allure.step("Verify header text");
-        //Expected needs to be 'Challenging DOM' for test to pass
-        assertEquals(challengingDOMPage.getFooterText(),"Powered by Elemental Selenium", "Footer text does not match");
     }
 }

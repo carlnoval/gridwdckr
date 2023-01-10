@@ -7,7 +7,6 @@ public class ChallengingDOM {
     private final WebDriver driver;
 
     private final By header = By.xpath("//h3");
-    private final By footer = By.xpath("//*[@id='page-footer']/div/div");
 
     public ChallengingDOM(WebDriver driver) {
         this.driver = driver;
@@ -15,9 +14,5 @@ public class ChallengingDOM {
 
     public String getHeaderText() {
         return driver.findElement(header).getText();
-    }
-
-    public String getFooterText() {
-        return driver.findElement(footer).getText();
     }
 }
