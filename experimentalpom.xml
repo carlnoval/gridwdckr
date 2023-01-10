@@ -1,0 +1,139 @@
+<!--
+- Goal: Generate Allure Report locally with mvn command.
+- Error after running `mvn allure:serve`: Exception in thr ead "main" java.lang.NoClassDefFoundError: javax/xml/bind/annotation/XmlElement
+- Have asked about the error in here: https://gitter.im/allure-framework/allure-core?at=63b9a9098f8df4262ae05a03
+-->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>gridwdcker</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>http://repo.maven.apache.org/maven2/</url>
+        </repository>
+    </repositories>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <aspectj.version>1.8.10</aspectj.version>
+<!--        <allure.version>2.20.1</allure.version>-->
+    </properties>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+        <!-- Allure dependency for mvn allure:serve -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+<!--            <version>2.4.0-b180830.0359</version>-->
+            <version>2.3.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl -->
+        <!-- Allure dependency for mvn allure:serve -->
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+<!--            <version>4.0.1</version>-->
+            <version>2.2.5-b10</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/ru.yandex.qatools.allure/allure-testng-adaptor -->
+        <!-- Allure dependency for mvn allure:serve -->
+        <dependency>
+            <groupId>ru.yandex.qatools.allure</groupId>
+            <artifactId>allure-testng-adaptor</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+
+        <!-- https://docs.qameta.io/allure/#_testng -->
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.20.1</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <!-- gets rid of warning: SLF4J: WARNING: Unable to find CDP implementation matching XXX(version number) -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.7.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+        <!-- gets rid of warning: SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder" -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.5</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-support -->
+        <!-- dedicated class for dropdowns called Select which offers useful methods for dropdown options -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-support</artifactId>
+            <version>4.7.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.7.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- https://docs.qameta.io/allure/#_testng -->
+    <!-- also makes sure that `mvn clean test` command follows testng.xml settings -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.8</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <!-- Allure settings -->
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
+                    <systemPropertyVariables>
+                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                    </systemPropertyVariables>
+
+                    <!-- command: `mvn clean test` will use testng.xml settings -->
+                    <suiteXmlFiles>
+                        <suiteXmlFile>xmlFiles/testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+</project>
