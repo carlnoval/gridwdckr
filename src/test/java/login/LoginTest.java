@@ -1,6 +1,7 @@
 package login;
 
 import baseTest.BaseTest;
+import io.qameta.allure.Allure;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.SecureAreaPage;
@@ -13,11 +14,17 @@ public class LoginTest extends BaseTest {
         String USERNAME = "tomsmith";
         String PASSWORD = "SuperSecretPassword!";
 
-        LoginPage loginPage = basePage.clickFormAuthentication();       // inherited from BaseTest, change page
-        loginPage.setUsername(USERNAME);                                // enter credentials
-        loginPage.setPassword(PASSWORD);
-        SecureAreaPage secureAreaPage = loginPage.clickLoginButton();   // another change page
+        Allure.step("clickFormAuthentication");
+        LoginPage loginPage = basePage.clickFormAuthentication();
 
+        Allure.step("Enter credentials and click on login");
+        loginPage.setUsername(USERNAME);
+        loginPage.setPassword(PASSWORD);
+
+        Allure.step("Click on login");
+        SecureAreaPage secureAreaPage = loginPage.clickLoginButton();
+
+        Allure.step("Check if user is able to login");
         assertEquals(secureAreaPage.getAlertText(),"You logged into a secure area!", "Error: After login banner message does not match.");
     }
 }
