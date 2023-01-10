@@ -10,7 +10,7 @@ import static org.testng.Assert.assertEquals;
 
 public class FailingTest extends BaseTest {
     @Test
-    @Description("This test is meant to fail. There are two assertions, first assertion fails and the second one passes.")
+    @Description("This test is meant to fail.")
     public void failingTest() {
         Allure.step("clickFormAuthentication");
         ChallengingDOM challengingDOMPage = basePage.clickChallengingDOM();
