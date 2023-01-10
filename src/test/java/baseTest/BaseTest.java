@@ -41,21 +41,6 @@ public class BaseTest {
         driver.get(URL_HOME_PAGE);
     }
 
-    // always executes after every @Test annotated methods
-    @AfterMethod
-    public void screenShotOnFail(ITestResult testResults) {                     // ITestResult gets automatically passed to the method
-        if (ITestResult.FAILURE == testResults.getStatus()) {
-            TakesScreenshot ss = (TakesScreenshot)driver;                       // take AllureFailedTestListener screenshot if test failed
-            String ssFileName = ss.getScreenshotAs(OutputType.FILE).getName();  // getting name of the file
-
-            try {
-                Allure.addAttachment(ssFileName, new ByteArrayInputStream(ss.getScreenshotAs(OutputType.BYTES)));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     // always executes before the class of the test
     // AllureFailedTestListener better way is to use AllureFailedTestListener class that extends TestListenerAdapter but there is an Allure bug that does not display Test Body so screenshots will also not appear
     @AfterClass
