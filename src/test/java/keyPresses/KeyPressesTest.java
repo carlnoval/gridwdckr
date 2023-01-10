@@ -2,6 +2,7 @@ package keyPresses;
 
 import baseTest.BaseTest;
 import io.qameta.allure.Allure;
+import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
@@ -11,6 +12,7 @@ import static org.testng.Assert.assertEquals;
 
 public class KeyPressesTest extends BaseTest {
     @Test
+    @Description("Test last key pressed")
     public void keyPressesTest() {
         Allure.step("clickKeyPressesPage");
         KeyPressesPage keyPressesPage = basePage.clickKeyPressesPage();

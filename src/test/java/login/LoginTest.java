@@ -2,6 +2,7 @@ package login;
 
 import baseTest.BaseTest;
 import io.qameta.allure.Allure;
+import io.qameta.allure.Description;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.SecureAreaPage;
@@ -10,6 +11,7 @@ import static org.testng.Assert.assertEquals;
 
 public class LoginTest extends BaseTest {
     @Test
+    @Description("Test valid login")
     public void successfulLoginTest() {
         String USERNAME = "tomsmith";
         String PASSWORD = "SuperSecretPassword!";
