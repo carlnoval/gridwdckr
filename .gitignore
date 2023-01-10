@@ -3,6 +3,9 @@
 /.idea/shelf/
 /.idea/workspace.xml
 /.idea/jarRepositories.xml
+/.idea/gridwdckr.iml
+/.idea/compiler.xml
+/.idea/modules.xml
 
 # mac desktop service store does not need to be added in repo
 .DS_Store
