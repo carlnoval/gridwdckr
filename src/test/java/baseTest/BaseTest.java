@@ -21,6 +21,10 @@ public class BaseTest {
     private WebDriver driver;
     protected BasePage basePage;    // protected so subclass and package can access
 
+    public WebDriver getDriver(){
+        return driver;
+    }
+
     @BeforeClass                    // always executes before the class of the test
     @Parameters({"browser"})        // "browser" will be set from testng.xml, gets stored in desiredBrowser
     public void webDriverInit(String desiredBrowser) throws MalformedURLException {
@@ -41,7 +45,7 @@ public class BaseTest {
     @AfterMethod
     public void screenShotOnFail(ITestResult testResults) {                     // ITestResult gets automatically passed to the method
         if (ITestResult.FAILURE == testResults.getStatus()) {
-            TakesScreenshot ss = (TakesScreenshot)driver;                       // take a screenshot if test failed
+            TakesScreenshot ss = (TakesScreenshot)driver;                       // take AllureFailedTestListener screenshot if test failed
             String ssFileName = ss.getScreenshotAs(OutputType.FILE).getName();  // getting name of the file
 
             try {
@@ -53,7 +57,7 @@ public class BaseTest {
     }
 
     // always executes before the class of the test
-    // a better way is to use a class that extends TestListenerAdapter but there is an Allure bug that does not display Test Body so screenshots will also not appear
+    // AllureFailedTestListener better way is to use AllureFailedTestListener class that extends TestListenerAdapter but there is an Allure bug that does not display Test Body so screenshots will also not appear
     @AfterClass
     public void webDriverClose() {
         driver.quit();
