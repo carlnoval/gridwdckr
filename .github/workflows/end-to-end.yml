@@ -1,5 +1,4 @@
 name: Run End to End Test
-
 run-name: Run End to End Test
 
 on:
@@ -38,7 +37,7 @@ jobs:
           distribution: 'adopt'
           # Cache dependencies from pom.xml, reduces run time by only downloading new dependencies
           cache: 'maven'
-#
+
       - name: Run EndToEnd Test
         run: mvn test
 
