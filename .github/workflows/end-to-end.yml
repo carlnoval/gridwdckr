@@ -74,4 +74,4 @@ jobs:
 
       - name: Latest Report URL
         if: success() || failure()
-        run: echo https://carlnoval.github.io/gh-gridwdckr/${{ github.run_number }}
+        run: echo https://carlnoval.github.io/gridwdckr/${{ github.run_number }}
