@@ -38,8 +38,7 @@ public class BaseTest {
         driver.get(URL_HOME_PAGE);
     }
 
-    // always executes before the class of the test
-    // AllureFailedTestListener better way is to use AllureFailedTestListener class that extends TestListenerAdapter but there is an Allure bug that does not display Test Body so screenshots will also not appear
+    // always executes after tests for each class is completed
     @AfterClass
     public void webDriverClose() {
         driver.quit();
